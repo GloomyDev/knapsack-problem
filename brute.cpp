@@ -12,11 +12,6 @@
 std::string file = "knapsack.txt";
 int laps = 1;
 
-bool myComparison(const Item &a, const Item &b)
-{
-    return a.second < b.second;
-}
-
 void partialSums(int index, Item item, const Knapsack &items, Item &solution, const int &max_weight)
 {
     if (index == items.size()) {

@@ -14,11 +14,6 @@
 std::string file = "knapsack.txt";
 int laps = 1;
 
-bool myComparison(const Item &a, const Item &b)
-{
-    return a.second < b.second;
-}
-
 int solveDynamic(int index, int max_weight, Matrix &matrix, Knapsack &knapsack) {
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 

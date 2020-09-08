@@ -12,11 +12,6 @@
 std::string file = "knapsack.txt";
 int laps = 1;
 
-bool myComparison(const Item &a, const Item &b)
-{
-    return a.second > b.second;
-}
-
 int solveBacktracking(int solution, int index, int max_weight, const Knapsack &knapsack){
     if (index == knapsack.size() || max_weight == 0){
         return solution;

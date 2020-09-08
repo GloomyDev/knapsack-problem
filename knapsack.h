@@ -9,6 +9,11 @@
 #define Item std::pair<int, int>
 #define Knapsack std::vector<Item>
 
+bool myComparison(const Item &a, const Item &b)
+{
+    return a.second < b.second;
+}
+
 Knapsack knapsackGenerator(unsigned int &num_items, unsigned int &max_weight) {
     Knapsack knapsack(num_items);
     for (int i = 0; i < num_items; i++) {
