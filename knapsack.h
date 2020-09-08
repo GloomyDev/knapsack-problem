@@ -32,6 +32,8 @@ Knapsack getKnapsackFromFile(std::string filename) {
         pairs.push_back(item);
     }
     ifs.close();
+    pairs.erase(pairs.begin());
+    pairs.erase(pairs.end() - 1);
     return pairs;
 }
 
