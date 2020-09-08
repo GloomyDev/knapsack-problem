@@ -11,7 +11,7 @@
 #define Knapsack std::vector<Item>
 #define Matrix std::vector<std::vector<int> >
 
-std::string file = "mochila.txt";
+std::string file = "knapsack.txt";
 int laps = 1;
 
 bool myComparison(const Item &a, const Item &b)
@@ -19,29 +19,29 @@ bool myComparison(const Item &a, const Item &b)
     return a.second < b.second;
 }
 
-int solveDynamic(int index, int max_weight, Matrix &matrix, Knapsack &mochila) {
+int solveDynamic(int index, int max_weight, Matrix &matrix, Knapsack &knapsack) {
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 
-    std::pair<int, int> item = mochila[index];
+    std::pair<int, int> item = knapsack[index];
 
-    if (index == 0) { //Si es el último item
+    if (index == 0) { // If last item
         if (item.first <= max_weight) return item.second;
         return 0;
     }
 
     if (max_weight == 0) return 0;
 
-    if (item.first > max_weight) return solveDynamic(index-1, max_weight, matrix, mochila);
+    if (item.first > max_weight) return solveDynamic(index-1, max_weight, matrix, knapsack);
 
-    matrix[index][max_weight] = std::max(solveDynamic(index-1, max_weight, matrix, mochila),
-                                    solveDynamic(index-1, max_weight - item.first, matrix, mochila) + item.second);  
+    matrix[index][max_weight] = std::max(solveDynamic(index-1, max_weight, matrix, knapsack),
+                                    solveDynamic(index-1, max_weight - item.first, matrix, knapsack) + item.second);  
 
     return matrix[index][max_weight];
 }
 
-int dynamic(int max_weight, Knapsack &mochila) {
-    Matrix matrix(mochila.size(), std::vector<int>(max_weight + 1, -1));
-    int result = solveDynamic(mochila.size() - 1, max_weight, matrix, mochila);
+int dynamic(int max_weight, Knapsack &knapsack) {
+    Matrix matrix(knapsack.size(), std::vector<int>(max_weight + 1, -1));
+    int result = solveDynamic(knapsack.size() - 1, max_weight, matrix, knapsack);
     return result;
 }
 
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
         diffDynamic = endDynamic - startDynamic;
         averageTime += diffDynamic;
     }
-    // cout << "Tiempo utilizado por Dynamic " << chrono::duration <double, milli> (diffDynamic).count() << " ms." << " Profit: " << testDynamic << endl;
+    // cout << "Times used by Dynamic " << chrono::duration <double, milli> (diffDynamic).count() << " ms." << " Profit: " << testDynamic << endl;
     file << "dynamic;"
          << items.size() << ";"
          << max_weight << ";"

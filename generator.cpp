@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
     if(argc != 5) {
         std::cerr << "Not enough parameters" << std::endl;
     } else {
-        num_items = atoi(argv[1]);    
+        num_items = atoi(argv[1]);
         max_weight = atoi(argv[2]);
         profit = atoi(argv[3]);
         seed = atoi(argv[4]);

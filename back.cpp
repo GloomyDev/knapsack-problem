@@ -10,7 +10,7 @@
 #define Item std::pair<int, int>
 #define Knapsack std::vector<Item>
 
-std::string file = "mochila.txt";
+std::string file = "knapsack.txt";
 int laps = 1;
 
 bool myComparison(const Item &a, const Item &b)
@@ -18,21 +18,21 @@ bool myComparison(const Item &a, const Item &b)
     return a.second > b.second;
 }
 
-int solveBacktracking(int solution, int index, int max_weight, const Knapsack &mochila){
-    if (index == mochila.size() || max_weight == 0){
+int solveBacktracking(int solution, int index, int max_weight, const Knapsack &knapsack){
+    if (index == knapsack.size() || max_weight == 0){
         return solution;
-    } else if (max_weight - mochila[index].first < 0){
+    } else if (max_weight - knapsack[index].first < 0){
         index++;
-        return solveBacktracking(solution, index, max_weight, mochila);
+        return solveBacktracking(solution, index, max_weight, knapsack);
     } else {
-        int proximo = index + 1;
-        return std::max(solveBacktracking(solution + mochila[index].second, proximo, max_weight - mochila[index].first, mochila),
-                solveBacktracking(solution, proximo, max_weight, mochila));
+        int next_item = index + 1;
+        return std::max(solveBacktracking(solution + knapsack[index].second, next_item, max_weight - knapsack[index].first, knapsack),
+                solveBacktracking(solution, next_item, max_weight, knapsack));
     }
 }
 
-int backtracking(const int &max_weight, const Knapsack &mochila){
-    return solveBacktracking(0, 0, max_weight, mochila);
+int backtracking(const int &max_weight, const Knapsack &knapsack){
+    return solveBacktracking(0, 0, max_weight, knapsack);
 }
 
 Knapsack knapsackGenerator(unsigned int &num_items, unsigned int &max_weight) {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
         diffBacktracking = endBacktracking - startBacktracking;
         averageTime += diffBacktracking;
     }
-    // cout << "Tiempo utilizado por Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms." << " Profit: " << test_backtracking << endl;
+    // cout << "Time used by Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms." << " Profit: " << test_backtracking << endl;
     file << "backtracking;"
          << items.size() << ";"
          << max_weight << ";"

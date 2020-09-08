@@ -10,7 +10,7 @@
 #define Item std::pair<int, int>
 #define Knapsack std::vector<Item>
 
-std::string file = "mochila.txt";
+std::string file = "knapsack.txt";
 int laps = 1;
 
 bool myComparison(const Item &a, const Item &b)
@@ -18,27 +18,27 @@ bool myComparison(const Item &a, const Item &b)
     return a.second < b.second;
 }
 
-void partialSums(int index, Item par, const Knapsack &items, Item &solution, const int &max_weight)
+void partialSums(int index, Item item, const Knapsack &items, Item &solution, const int &max_weight)
 {
     if (index == items.size()) {
-        if (par.first <= max_weight && par.second > solution.second){
-            solution.first = par.first;
-            solution.second = par.second;
+        if (item.first <= max_weight && item.second > solution.second){
+            solution.first = item.first;
+            solution.second = item.second;
         }
     } else {
         index++;
-        partialSums(index, par, items, solution, max_weight);
+        partialSums(index, item, items, solution, max_weight);
 
-        par.first += items[index - 1].first;
-        par.second += items[index - 1].second;
-        partialSums(index, par, items, solution, max_weight);
+        item.first += items[index - 1].first;
+        item.second += items[index - 1].second;
+        partialSums(index, item, items, solution, max_weight);
     }
 }
 
-int fuerza_bruta(const int &max_weight, const Knapsack &mochila){
-    Item par (0,0);
+int brute_force(const int &max_weight, const Knapsack &knapsack){
+    Item item (0,0);
     Item solution (0,0);
-    partialSums(0, par, mochila, solution, max_weight);
+    partialSums(0, item, knapsack, solution, max_weight);
     unsigned int benefit = solution.second;
     return benefit;
 }
@@ -80,23 +80,23 @@ int main(int argc, char *argv[]) {
     std::string bruteTest = "bruteforce.csv";
     file.open(bruteTest, std::fstream::out);
 
-    auto start_fuerza_bruta = std::chrono::steady_clock::now();
-    unsigned int test_fuerza_bruta = fuerza_bruta(max_weight, items);
-    auto end_fuerza_bruta = std::chrono::steady_clock::now();
-    auto diff_fuerza_bruta = end_fuerza_bruta - start_fuerza_bruta;
-    auto averageTime = diff_fuerza_bruta;
+    auto start_brute_force = std::chrono::steady_clock::now();
+    unsigned int test_brute_force = brute_force(max_weight, items);
+    auto end_brute_force = std::chrono::steady_clock::now();
+    auto diff_brute_force = end_brute_force - start_brute_force;
+    auto averageTime = diff_brute_force;
     for (int i = 1; i <= 20 - 1; i++) {
-        start_fuerza_bruta = std::chrono::steady_clock::now();
-        test_fuerza_bruta = fuerza_bruta(max_weight, items);
-        end_fuerza_bruta = std::chrono::steady_clock::now();
-        diff_fuerza_bruta = end_fuerza_bruta - start_fuerza_bruta;
-        averageTime += diff_fuerza_bruta;
+        start_brute_force = std::chrono::steady_clock::now();
+        test_brute_force = brute_force(max_weight, items);
+        end_brute_force = std::chrono::steady_clock::now();
+        diff_brute_force = end_brute_force - start_brute_force;
+        averageTime += diff_brute_force;
     }
-    // cout << "Tiempo utilizado por Brute Force " << chrono::duration <double, milli> (diff_fuerza_bruta).count() << " ms." << " Profit: " << test_fuerza_bruta << endl;
+    // cout << "Time used by Brute Force " << chrono::duration <double, milli> (diff_brute_force).count() << " ms." << " Profit: " << test_brute_force << endl;
     file << "bruteforce;"
          << items.size() << ";"
          << max_weight << ";"
-         << test_fuerza_bruta <<";"
+         << test_brute_force <<";"
          << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / 20<< ";"
          << std::endl;
     file.close();
