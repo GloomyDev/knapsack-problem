@@ -46,10 +46,6 @@ int main(int argc, char *argv[]) {
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
-    std::ofstream file;
-    std::string backTest = "backtracking.csv";
-    file.open(backTest, std::fstream::out);
-
     auto startBacktracking = std::chrono::steady_clock::now();
     unsigned int test_backtracking = backtracking(max_weight, items);
     auto endBacktracking = std::chrono::steady_clock::now();
@@ -63,12 +59,6 @@ int main(int argc, char *argv[]) {
         averageTime += diffBacktracking;
     }
     // cout << "Time used by Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms." << " Profit: " << test_backtracking << endl;
-    file << "backtracking;"
-         << items.size() << ";"
-         << max_weight << ";"
-         << test_backtracking<< ";"
-         << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / 25 << ";"
-         << std::endl;
-    file.close();
+    printResultsToFile("backtracking", items.size(), max_weight, test_backtracking, 25, averageTime);
     return 0;
 }

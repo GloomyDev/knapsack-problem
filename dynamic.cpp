@@ -57,10 +57,6 @@ int main(int argc, char *argv[]) {
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
-    std::ofstream file;
-    std::string dynamicTest = "dynamic.csv";
-    file.open(dynamicTest, std::fstream::out);
-
     auto startDynamic = std::chrono::steady_clock::now();
     unsigned int testDynamic = dynamic(max_weight, items);
     auto endDynamic = std::chrono::steady_clock::now();
@@ -74,12 +70,6 @@ int main(int argc, char *argv[]) {
         averageTime += diffDynamic;
     }
     // cout << "Times used by Dynamic " << chrono::duration <double, milli> (diffDynamic).count() << " ms." << " Profit: " << testDynamic << endl;
-    file << "dynamic;"
-         << items.size() << ";"
-         << max_weight << ";"
-         << testDynamic << ";"
-         << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / 50 << ";"
-         << std::endl;
-    file.close();
+    printResultsToFile("dynamic", items.size(), max_weight, testDynamic, 50, averageTime);
     return 0;
 }

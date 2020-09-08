@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <fstream>
 #include <string>
 #include <utility>
@@ -27,4 +28,27 @@ Knapsack getKnapsackFromFile(std::string filename) {
     }
     ifs.close();
     return pairs;
+}
+
+void printResultsToFile(
+    const std::string &algorithmName,
+    const int numberOfItems,
+    const int maxWeight,
+    const int algorithmResult,
+    const int iterations,
+    std::chrono::duration<int64_t, std::nano> averageTime)
+{
+    std::ofstream file;
+    std::string result_filename = algorithmName + ".csv";
+
+    file.open(result_filename, std::fstream::out);
+
+    file << algorithmName << ";"
+         << numberOfItems << ";"
+         << maxWeight << ";"
+         << algorithmResult <<";"
+         << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / iterations << ";"
+         << std::endl;
+
+    file.close();
 }

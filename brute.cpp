@@ -54,10 +54,6 @@ int main(int argc, char *argv[]) {
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
-    std::ofstream file;
-    std::string bruteTest = "bruteforce.csv";
-    file.open(bruteTest, std::fstream::out);
-
     auto start_brute_force = std::chrono::steady_clock::now();
     unsigned int test_brute_force = brute_force(max_weight, items);
     auto end_brute_force = std::chrono::steady_clock::now();
@@ -71,12 +67,6 @@ int main(int argc, char *argv[]) {
         averageTime += diff_brute_force;
     }
     // cout << "Time used by Brute Force " << chrono::duration <double, milli> (diff_brute_force).count() << " ms." << " Profit: " << test_brute_force << endl;
-    file << "bruteforce;"
-         << items.size() << ";"
-         << max_weight << ";"
-         << test_brute_force <<";"
-         << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / 20<< ";"
-         << std::endl;
-    file.close();
+    printResultsToFile("bruteforce", items.size(), max_weight, test_brute_force, 20, averageTime);
     return 0;
 }
