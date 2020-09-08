@@ -9,9 +9,6 @@
 
 #include "knapsack.h"
 
-std::string file = "knapsack.txt";
-int laps = 1;
-
 int solveBacktracking(int solution, int index, int max_weight, const Knapsack &knapsack){
     if (index == knapsack.size() || max_weight == 0){
         return solution;
@@ -30,12 +27,13 @@ int backtracking(const int &max_weight, const Knapsack &knapsack){
 }
 
 int main(int argc, char *argv[]) {
+    std::string file;
     if (argc > 1) {
         file = argv[1];
-        if (argc > 2) {
-            laps = atoi(argv[2]);
-        }
+    } else {
+        return 1;
     }
+
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
     items.erase(items.begin());

@@ -11,9 +11,6 @@
 
 #define Matrix std::vector<std::vector<int> >
 
-std::string file = "knapsack.txt";
-int laps = 1;
-
 int solveDynamic(int index, int max_weight, Matrix &matrix, Knapsack &knapsack) {
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 
@@ -41,12 +38,13 @@ int dynamic(int max_weight, Knapsack &knapsack) {
 }
 
 int main(int argc, char *argv[]) {
+    std::string file;
     if (argc > 1) {
         file = argv[1];
-        if (argc > 2) {
-            laps = atoi(argv[2]);
-        }
+    } else {
+        return 1;
     }
+
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
     items.erase(items.begin());

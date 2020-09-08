@@ -9,9 +9,6 @@
 
 #include "knapsack.h"
 
-std::string file = "knapsack.txt";
-int laps = 1;
-
 void partialSums(int index, Item item, const Knapsack &items, Item &solution, const int &max_weight)
 {
     if (index == items.size()) {
@@ -38,12 +35,13 @@ int brute_force(const int &max_weight, const Knapsack &knapsack){
 }
 
 int main(int argc, char *argv[]) {
+    std::string file;
     if (argc > 1) {
         file = argv[1];
-        if (argc > 2) {
-            laps = atoi(argv[2]);
-        }
+    } else {
+        return 1;
     }
+
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
     items.erase(items.begin());
