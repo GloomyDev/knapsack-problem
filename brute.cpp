@@ -1,21 +1,21 @@
-#define Item pair<int, int>
-#define Knapsack vector<Item>
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
-#include <chrono>
-#include <math.h>
 #include <fstream>
-using namespace std;
+#include <iostream>
+#include <math.h>
+#include <vector>
 
-string file = "mochila.txt";
+#define Item std::pair<int, int>
+#define Knapsack std::vector<Item>
+
+std::string file = "mochila.txt";
 int laps = 1;
 
 bool myComparison(const Item &a, const Item &b)
 {
-       return a.second < b.second;
+    return a.second < b.second;
 }
 
 void partialSums(int index, Item par, const Knapsack &items, Item &solution, const int &max_weight)
@@ -46,20 +46,15 @@ int fuerza_bruta(const int &max_weight, const Knapsack &mochila){
 Knapsack knapsackGenerator(unsigned int &num_items, unsigned int &max_weight) {
     Knapsack knapsack(num_items);
     for (int i = 0; i < num_items; i++) {
-        // Random
         knapsack[i].first = (rand() % max_weight + 1);
         knapsack[i].second = (rand() % max_weight + 1);
-        
-        // Manual
-        // cin >> mochila[i].first >> mochila[i].second;   
-        // cout << mochila[i].first << " " << mochila[i].second << endl;
     }
     return knapsack;
 }
 
-Knapsack getKnapsackFromFile(string filename) {
+Knapsack getKnapsackFromFile(std::string filename) {
     Knapsack pairs;
-    ifstream ifs(filename);
+    std::ifstream ifs(filename);
     while (!ifs.eof()) {
         Item item;
         ifs >> item.first >> item.second;
@@ -81,37 +76,29 @@ int main(int argc, char *argv[]) {
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
-    // sort(items.begin(), items.end(), myComparison);
-    // for (int i = 0; i < items.size(); i++) {
-    //     cout << items[i].first << " " << items[i].second << endl;
-    // }
+    std::ofstream file;
+    std::string bruteTest = "bruteforce.csv";
+    file.open(bruteTest, std::fstream::out);
 
-    // Benchmark Fuerza Bruta
-    // srand (time(NULL));
-    // cout << "steady_clock" << endl;
-    // cout << chrono::steady_clock::period::num << endl;
-    // cout << chrono::steady_clock::period::den << endl;
-    // cout << "steady = " << boolalpha << chrono::steady_clock::is_steady << endl << endl;
-    // cout << "*************************" << endl;
-
-    ofstream file;
-    string bruteTest = "bruteforce.csv";
-    file.open(bruteTest, fstream::out);
-    // file << "bruteforce;items;max weight;profit;time;" << endl;
-    auto start_fuerza_bruta = chrono::steady_clock::now();
+    auto start_fuerza_bruta = std::chrono::steady_clock::now();
     unsigned int test_fuerza_bruta = fuerza_bruta(max_weight, items);
-    auto end_fuerza_bruta = chrono::steady_clock::now();
+    auto end_fuerza_bruta = std::chrono::steady_clock::now();
     auto diff_fuerza_bruta = end_fuerza_bruta - start_fuerza_bruta;
     auto averageTime = diff_fuerza_bruta;
     for (int i = 1; i <= 20 - 1; i++) {
-        start_fuerza_bruta = chrono::steady_clock::now();
+        start_fuerza_bruta = std::chrono::steady_clock::now();
         test_fuerza_bruta = fuerza_bruta(max_weight, items);
-        end_fuerza_bruta = chrono::steady_clock::now();
+        end_fuerza_bruta = std::chrono::steady_clock::now();
         diff_fuerza_bruta = end_fuerza_bruta - start_fuerza_bruta;
         averageTime += diff_fuerza_bruta;
     }
     // cout << "Tiempo utilizado por Brute Force " << chrono::duration <double, milli> (diff_fuerza_bruta).count() << " ms." << " Profit: " << test_fuerza_bruta << endl;
-    file << "bruteforce;" << items.size() << ";" << max_weight << ";" << test_fuerza_bruta << ";" << std::fixed << chrono::duration <double, milli> (averageTime).count() / 20 << ";" << endl;
+    file << "bruteforce;"
+         << items.size() << ";"
+         << max_weight << ";"
+         << test_fuerza_bruta <<";"
+         << std::fixed << std::chrono::duration <double, std::milli> (averageTime).count() / 20<< ";"
+         << std::endl;
     file.close();
     return 0;
 }

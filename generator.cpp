@@ -1,19 +1,19 @@
-#define Item pair<int, int>
-#define Items vector<Item>
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
-#include <chrono>
-#include <tuple>
 #include <fstream>
+#include <iostream>
 #include <iterator>
-#include <utility>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-using namespace std;
+#include <tuple>
+#include <utility>
+#include <vector>
+
+#define Item std::pair<int, int>
+#define Items std::vector<Item>
 
 Items items;
 
@@ -32,10 +32,10 @@ Items generateItemsList(int num_items, int max_weight, int profit) {
     return items;
 }
 
-void printVectorToFile(int num_items, int max_weight, Items items, ofstream &f) {
-    f << num_items << " " << max_weight << endl;
+void printVectorToFile(int num_items, int max_weight, Items items, std::ofstream &f) {
+    f << num_items << " " << max_weight << std::endl;
     for(int i = 0; i < num_items; i++) {
-        f << items[i].first << " " << items[i].second << endl;
+        f << items[i].first << " " << items[i].second << std::endl;
     }
 }
 
@@ -44,18 +44,18 @@ int main(int argc, char *argv[]) {
     int max_weight = 0; 
     int profit = 0;
     if(argc != 5) {
-        cerr << "Not enough parameters" << endl;
+        std::cerr << "Not enough parameters" << std::endl;
     } else {
         num_items = atoi(argv[1]);    
         max_weight = atoi(argv[2]);
         profit = atoi(argv[3]);
         seed = atoi(argv[4]);
     }
-    
-    vector<Item> items = generateItemsList(num_items, max_weight, profit);
-    string fileName = to_string(num_items) + "i_" + to_string(max_weight) + "w_" + to_string(profit) + "p.txt";
-    ofstream f;
-    f.open(fileName, fstream::out);
+
+    std::vector<Item> items = generateItemsList(num_items, max_weight, profit);
+    std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(profit) + "p.txt";
+    std::ofstream f;
+    f.open(fileName, std::fstream::out);
     printVectorToFile(num_items, max_weight, items, f);
     f.close();
     return 0;
