@@ -6,13 +6,25 @@
 #include <utility>
 #include <vector>
 
-#define Item std::pair<unsigned, unsigned>
 #define Knapsack std::vector<Item>
 #define Matrix std::vector<std::vector<int>>
 
-bool myComparison(const Item &a, const Item &b)
+struct Item
 {
-    return a.second < b.second;
+    unsigned weight;
+    unsigned value;
+};
+
+Item operator+(const Item &lhs, const Item &rhs)
+{
+    return { lhs.weight + rhs.weight, lhs.value + rhs.value };
+}
+
+Item& operator+=(Item &lhs, const Item &rhs)
+{
+    lhs.weight += rhs.weight;
+    lhs.value += rhs.value;
+    return lhs;
 }
 
 Knapsack knapsackGenerator(const unsigned num_items, const unsigned max_weight)
@@ -20,8 +32,8 @@ Knapsack knapsackGenerator(const unsigned num_items, const unsigned max_weight)
     Knapsack knapsack(num_items);
     for (int i = 0; i < num_items; i++)
     {
-        knapsack[i].first = (rand() % max_weight + 1);
-        knapsack[i].second = (rand() % max_weight + 1);
+        knapsack[i].weight = (rand() % max_weight + 1);
+        knapsack[i].value = (rand() % max_weight + 1);
     }
     return knapsack;
 }
@@ -32,7 +44,7 @@ Knapsack getKnapsackFromFile(const std::string &filename) {
     while (!ifs.eof())
     {
         Item item;
-        ifs >> item.first >> item.second;
+        ifs >> item.weight >> item.value;
         pairs.push_back(item);
     }
     ifs.close();

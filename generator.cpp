@@ -16,14 +16,14 @@
 #define Item std::pair<unsigned, unsigned>
 #define Items std::vector<Item>
 
-static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned profit)
+static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned value)
 {
     Items items;
     items.reserve(num_items);
     for (unsigned i = 0; i < num_items; ++i) {
         items.emplace_back(
             (static_cast<unsigned>(rand()) % max_weight) + 1,
-            (static_cast<unsigned>(rand()) % profit) + 1
+            (static_cast<unsigned>(rand()) % value) + 1
         );
     }
     return items;
@@ -48,10 +48,10 @@ int main(int argc, char *argv[])
 
     const unsigned num_items = static_cast<unsigned>(atoi(argv[1]));
     const unsigned max_weight = static_cast<unsigned>(atoi(argv[2]));
-    const unsigned profit = static_cast<unsigned>(atoi(argv[3]));
+    const unsigned value = static_cast<unsigned>(atoi(argv[3]));
 
-    const Items items = generateItemsList(num_items, max_weight, profit);
-    const std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(profit) + "p.txt";
+    const Items items = generateItemsList(num_items, max_weight, value);
+    const std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(value) + "p.txt";
     std::ofstream file(fileName, std::fstream::out);
     printVectorToFile(num_items, max_weight, items, file);
     file.close();

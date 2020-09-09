@@ -15,14 +15,14 @@ unsigned solveBacktracking(const unsigned solution, const unsigned index, const 
     {
         return solution;
     }
-    else if (max_weight < knapsack[index].first)
+    else if (max_weight < knapsack[index].weight)
     {
         return solveBacktracking(solution, index + 1, max_weight, knapsack);
     }
     else
     { 
         return std::max(
-            solveBacktracking(solution + knapsack[index + 1].second, index + 1, max_weight - knapsack[index + 1].first, knapsack),
+            solveBacktracking(solution + knapsack[index + 1].value, index + 1, max_weight - knapsack[index + 1].weight, knapsack),
             solveBacktracking(solution, index + 1, max_weight, knapsack)
         );
     }
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     const std::string file = argv[1];
 
     Knapsack items = getKnapsackFromFile(file);
-    const unsigned max_weight = items[0].second;
+    const unsigned max_weight = items[0].value;
     items.erase(items.begin());
     items.erase(items.end() - 1);
 

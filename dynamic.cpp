@@ -13,21 +13,21 @@ unsigned solveDynamic(const unsigned index, const int max_weight, Matrix &matrix
 {
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 
-    const std::pair<int, int> item = knapsack[index];
+    const Item item = knapsack[index];
 
     if (index == 0)
     { // If last item
-        if (item.first <= max_weight) return item.second;
+        if (item.weight <= max_weight) return item.value;
         return 0;
     }
 
     if (max_weight == 0) return 0;
 
-    if (item.first > max_weight) return solveDynamic(index-1, max_weight, matrix, knapsack);
+    if (item.weight > max_weight) return solveDynamic(index - 1, max_weight, matrix, knapsack);
 
     matrix[index][max_weight] = std::max(
         solveDynamic(index-1, max_weight, matrix, knapsack),
-        solveDynamic(index-1, max_weight - item.first, matrix, knapsack) + item.second
+        solveDynamic(index-1, max_weight - item.weight, matrix, knapsack) + item.value
     );
 
     return matrix[index][max_weight];
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     const std::string file = argv[1];
 
     Knapsack items = getKnapsackFromFile(file);
-    const unsigned max_weight = items[0].second;
+    const unsigned max_weight = items[0].value;
     items.erase(items.begin());
     items.erase(items.end() - 1);
 

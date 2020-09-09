@@ -13,7 +13,7 @@ void partialSums(const unsigned index, Item item, const Knapsack &items, Item &s
 {
     if (index == items.size())
     {
-        if (item.first <= max_weight && item.second > solution.second)
+        if (item.weight <= max_weight && item.value > solution.value)
         {
             solution = item;
         }
@@ -21,18 +21,17 @@ void partialSums(const unsigned index, Item item, const Knapsack &items, Item &s
     else
     {
         partialSums(index + 1, item, items, solution, max_weight);
-        item.first += items[index].first;
-        item.second += items[index].second;
+        item += items[index];
         partialSums(index + 1, item, items, solution, max_weight);
     }
 }
 
 unsigned brute_force(const unsigned max_weight, const Knapsack &knapsack)
 {
-    Item item (0,0);
-    Item solution (0,0);
+    Item item {0,0};
+    Item solution {0,0};
     partialSums(0, item, knapsack, solution, max_weight);
-    const unsigned benefit = solution.second;
+    const unsigned benefit = solution.value;
     return benefit;
 }
 
@@ -43,7 +42,7 @@ int main(int argc, char *argv[])
     const std::string file = argv[1];
 
     Knapsack items = getKnapsackFromFile(file);
-    const unsigned max_weight = items[0].second;
+    const unsigned max_weight = items[0].value;
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
