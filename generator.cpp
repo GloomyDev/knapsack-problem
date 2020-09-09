@@ -21,25 +21,25 @@ Items generateItemsList(int num_items, int max_weight, int profit, int seed) {
     srand(seed);
     Items items;
     items.reserve(num_items);
-    Item item;
-    for (int i = 0; i < num_items; i++) {
-        item.first = (rand() % max_weight) + 1;
-        item.second = (rand() % profit) + 1;
-        items.push_back(item);
+    for (int i = 0; i < num_items; ++i) {
+        items.emplace_back(
+            (rand() % max_weight) + 1,
+            (rand() % profit) + 1
+        );
     }
     return items;
 }
 
 void printVectorToFile(int num_items, int max_weight, Items items, std::ofstream &f) {
     f << num_items << " " << max_weight << std::endl;
-    for(int i = 0; i < num_items; i++) {
+    for(int i = 0; i < num_items; ++i) {
         f << items[i].first << " " << items[i].second << std::endl;
     }
 }
 
 int main(int argc, char *argv[]) {
 
-    if(argc != 5)
+    if (argc != 5)
     {
         std::cerr << "Not enough parameters" << std::endl;
         return 1;
@@ -52,9 +52,8 @@ int main(int argc, char *argv[]) {
 
     std::vector<Item> items = generateItemsList(num_items, max_weight, profit, seed);
     std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(profit) + "p.txt";
-    std::ofstream f;
-    f.open(fileName, std::fstream::out);
-    printVectorToFile(num_items, max_weight, items, f);
-    f.close();
+    std::ofstream file(fileName, std::fstream::out);
+    printVectorToFile(num_items, max_weight, items, file);
+    file.close();
     return 0;
 }
