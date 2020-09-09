@@ -44,6 +44,8 @@ int main(int argc, char *argv[]) {
 
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
+    items.erase(items.begin());
+    items.erase(items.end() - 1);
 
     auto start_brute_force = std::chrono::steady_clock::now();
     unsigned int test_brute_force = brute_force(max_weight, items);

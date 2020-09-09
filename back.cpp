@@ -36,6 +36,8 @@ int main(int argc, char *argv[]) {
 
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
+    items.erase(items.begin());
+    items.erase(items.end() - 1);
 
     auto startBacktracking = std::chrono::steady_clock::now();
     unsigned int test_backtracking = backtracking(max_weight, items);
