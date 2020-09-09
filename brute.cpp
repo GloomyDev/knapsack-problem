@@ -29,12 +29,12 @@ void partialSums(int index, Item item, const Knapsack &items, Item &solution, co
     }
 }
 
-int brute_force(const int &max_weight, const Knapsack &knapsack)
+unsigned brute_force(const unsigned max_weight, const Knapsack &knapsack)
 {
     Item item (0,0);
     Item solution (0,0);
     partialSums(0, item, knapsack, solution, max_weight);
-    unsigned benefit = solution.second;
+    const unsigned benefit = solution.second;
     return benefit;
 }
 

@@ -15,7 +15,7 @@ bool myComparison(const Item &a, const Item &b)
     return a.second < b.second;
 }
 
-Knapsack knapsackGenerator(const unsigned &num_items, const unsigned &max_weight)
+Knapsack knapsackGenerator(const unsigned num_items, const unsigned max_weight)
 {
     Knapsack knapsack(num_items);
     for (int i = 0; i < num_items; i++)
@@ -63,7 +63,7 @@ void printResultsToFile(
 }
 
 std::chrono::nanoseconds benchmarkKnapsackAlgorithm(
-    int (*algorithm)(const int&, const Knapsack&),
+    unsigned (*algorithm)(const unsigned, const Knapsack&),
     const Knapsack &items,
     const unsigned max_weight,
     const unsigned iterations)
@@ -73,8 +73,7 @@ std::chrono::nanoseconds benchmarkKnapsackAlgorithm(
     {
         auto start_time = std::chrono::steady_clock::now();
         auto end_time = std::chrono::steady_clock::now();
-        auto diff_time = end_time - start_time;
-        averageTime += diff_time;
+        averageTime += end_time - start_time;
     }
     return averageTime;
 }
