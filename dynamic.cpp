@@ -47,6 +47,8 @@ int main(int argc, char *argv[]) {
 
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
+    items.erase(items.begin());
+    items.erase(items.end() - 1);
 
     auto startDynamic = std::chrono::steady_clock::now();
     unsigned int testDynamic = dynamic(max_weight, items);
