@@ -9,7 +9,7 @@
 
 #include "knapsack.h"
 
-void partialSums(int index, Item item, const Knapsack &items, Item &solution, const int &max_weight)
+void partialSums(const unsigned index, Item item, const Knapsack &items, Item &solution, const unsigned &max_weight)
 {
     if (index == items.size())
     {
@@ -20,12 +20,10 @@ void partialSums(int index, Item item, const Knapsack &items, Item &solution, co
     }
     else
     {
-        ++index;
-        partialSums(index, item, items, solution, max_weight);
-
-        item.first += items[index - 1].first;
-        item.second += items[index - 1].second;
-        partialSums(index, item, items, solution, max_weight);
+        partialSums(index + 1, item, items, solution, max_weight);
+        item.first += items[index].first;
+        item.second += items[index].second;
+        partialSums(index + 1, item, items, solution, max_weight);
     }
 }
 
@@ -51,7 +49,6 @@ int main(int argc, char *argv[])
 
     const unsigned solution = brute_force(max_weight, items);
     const auto averageTime = benchmarkKnapsackAlgorithm(brute_force, items, max_weight, 20);
-    // cout << "Time used by Brute Force " << chrono::duration <double, milli> (diff_brute_force).count() << " ms." << " Profit: " << test_brute_force << endl;
     printResultsToFile("bruteforce", items.size(), max_weight, solution, 20, averageTime);
     return 0;
 }

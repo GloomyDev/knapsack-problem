@@ -9,7 +9,7 @@
 
 #include "knapsack.h"
 
-unsigned solveDynamic(const unsigned index, const unsigned max_weight, Matrix &matrix, const Knapsack &knapsack)
+unsigned solveDynamic(const unsigned index, const int max_weight, Matrix &matrix, const Knapsack &knapsack)
 {
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 
@@ -36,8 +36,7 @@ unsigned solveDynamic(const unsigned index, const unsigned max_weight, Matrix &m
 unsigned dynamic(const unsigned max_weight, const Knapsack &knapsack)
 {
     Matrix matrix(knapsack.size(), std::vector<int>(max_weight + 1, -1));
-    const int result = solveDynamic(knapsack.size() - 1, max_weight, matrix, knapsack);
-    return result;
+    return solveDynamic(knapsack.size() - 1, max_weight, matrix, knapsack);
 }
 
 int main(int argc, char *argv[])
@@ -53,7 +52,6 @@ int main(int argc, char *argv[])
 
     const unsigned solution = dynamic(max_weight, items);
     const auto averageTime = benchmarkKnapsackAlgorithm(dynamic, items, max_weight, 50);
-    // cout << "Times used by Dynamic " << chrono::duration <double, milli> (diffDynamic).count() << " ms." << " Profit: " << testDynamic << endl;
     printResultsToFile("dynamic", items.size(), max_weight, solution, 50, averageTime);
     return 0;
 }

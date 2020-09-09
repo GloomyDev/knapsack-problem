@@ -13,7 +13,7 @@
 #include <utility>
 #include <vector>
 
-#define Item std::pair<int, int>
+#define Item std::pair<unsigned, unsigned>
 #define Items std::vector<Item>
 
 static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned profit)
@@ -29,7 +29,7 @@ static Items generateItemsList(const unsigned num_items, const unsigned max_weig
     return items;
 }
 
-static void printVectorToFile(const unsigned num_items, const unsigned max_weight, const Items items, std::ofstream &f)
+static void printVectorToFile(const unsigned num_items, const unsigned max_weight, const Items &items, std::ofstream &f)
 {
     f << num_items << " " << max_weight << std::endl;
     for(unsigned i = 0; i < num_items; ++i)
@@ -40,7 +40,6 @@ static void printVectorToFile(const unsigned num_items, const unsigned max_weigh
 
 int main(int argc, char *argv[])
 {
-
     if (argc != 4)
     {
         std::cerr << "Not enough parameters" << std::endl;
@@ -51,8 +50,8 @@ int main(int argc, char *argv[])
     const unsigned max_weight = static_cast<unsigned>(atoi(argv[2]));
     const unsigned profit = static_cast<unsigned>(atoi(argv[3]));
 
-    std::vector<Item> items = generateItemsList(num_items, max_weight, profit);
-    std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(profit) + "p.txt";
+    const Items items = generateItemsList(num_items, max_weight, profit);
+    const std::string fileName = std::to_string(num_items) + "i_" + std::to_string(max_weight) + "w_" + std::to_string(profit) + "p.txt";
     std::ofstream file(fileName, std::fstream::out);
     printVectorToFile(num_items, max_weight, items, file);
     file.close();

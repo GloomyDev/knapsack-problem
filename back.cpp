@@ -9,7 +9,7 @@
 
 #include "knapsack.h"
 
-unsigned solveBacktracking(const unsigned solution, const unsigned index, const unsigned max_weight, const Knapsack &knapsack)
+unsigned solveBacktracking(const unsigned solution, const unsigned index, const int max_weight, const Knapsack &knapsack)
 {
     if (index == knapsack.size() || max_weight == 0)
     {
@@ -17,15 +17,13 @@ unsigned solveBacktracking(const unsigned solution, const unsigned index, const 
     }
     else if (max_weight < knapsack[index].first)
     {
-        const unsigned next_item = index + 1;
-        return solveBacktracking(solution, next_item, max_weight, knapsack);
+        return solveBacktracking(solution, index + 1, max_weight, knapsack);
     }
     else
     { 
-        const unsigned next_item = index + 1;
         return std::max(
-            solveBacktracking(solution + knapsack[index].second, next_item, max_weight - knapsack[index].first, knapsack),
-            solveBacktracking(solution, next_item, max_weight, knapsack)
+            solveBacktracking(solution + knapsack[index + 1].second, index + 1, max_weight - knapsack[index + 1].first, knapsack),
+            solveBacktracking(solution, index + 1, max_weight, knapsack)
         );
     }
 }
@@ -48,7 +46,6 @@ int main(int argc, char *argv[])
 
     const unsigned solution = backtracking(max_weight, items);
     const auto averageTime = benchmarkKnapsackAlgorithm(backtracking, items, max_weight, 25);
-    // cout << "Time used by Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms." << " Profit: " << test_backtracking << endl;
     printResultsToFile("backtracking", items.size(), max_weight, solution, 25, averageTime);
     return 0;
 }

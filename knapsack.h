@@ -47,10 +47,9 @@ void printResultsToFile(
     const unsigned iterations,
     std::chrono::duration<int64_t, std::nano> averageTime)
 {
-    std::ofstream file;
-    std::string result_filename = algorithmName + ".csv";
+    const std::string result_filename = algorithmName + ".csv";
 
-    file.open(result_filename, std::fstream::out);
+    std::ofstream file(result_filename, std::fstream::out);
 
     file << algorithmName << ";"
          << numberOfItems << ";"
@@ -72,6 +71,7 @@ std::chrono::nanoseconds benchmarkKnapsackAlgorithm(
     for (int i = 0; i < iterations; ++i)
     {
         auto start_time = std::chrono::steady_clock::now();
+        algorithm(max_weight, items);
         auto end_time = std::chrono::steady_clock::now();
         averageTime += end_time - start_time;
     }
