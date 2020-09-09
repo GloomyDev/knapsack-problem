@@ -6,14 +6,14 @@
 #define Item std::pair<unsigned, unsigned>
 #define Items std::vector<Item>
 
-static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned value)
+static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned max_value)
 {
     Items items;
     items.reserve(num_items);
     for (unsigned i = 0; i < num_items; ++i) {
         items.emplace_back(
             (static_cast<unsigned>(rand()) % max_weight) + 1,
-            (static_cast<unsigned>(rand()) % value) + 1
+            (static_cast<unsigned>(rand()) % max_value) + 1
         );
     }
     return items;
