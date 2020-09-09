@@ -1,4 +1,4 @@
-CXX=g++
+CXX=clang++
 
 STDFLAGS = -std=c++17 -Wall -Weverything -pedantic -Wno-c++98-compat -Wno-c++98-compat-pedantic
 

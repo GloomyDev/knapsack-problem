@@ -34,32 +34,20 @@ int brute_force(const int &max_weight, const Knapsack &knapsack){
     return benefit;
 }
 
-int main(int argc, char *argv[]) {
-    std::string file;
-    if (argc > 1) {
-        file = argv[1];
-    } else {
-        return 1;
-    }
+int main(int argc, char *argv[])
+{
+    if (argc < 2) return 1;
+
+    const std::string file = argv[1];
 
     Knapsack items = getKnapsackFromFile(file);
     int max_weight = items[0].second;
     items.erase(items.begin());
     items.erase(items.end() - 1);
 
-    auto start_brute_force = std::chrono::steady_clock::now();
-    unsigned int test_brute_force = brute_force(max_weight, items);
-    auto end_brute_force = std::chrono::steady_clock::now();
-    auto diff_brute_force = end_brute_force - start_brute_force;
-    auto averageTime = diff_brute_force;
-    for (int i = 1; i <= 20 - 1; i++) {
-        start_brute_force = std::chrono::steady_clock::now();
-        test_brute_force = brute_force(max_weight, items);
-        end_brute_force = std::chrono::steady_clock::now();
-        diff_brute_force = end_brute_force - start_brute_force;
-        averageTime += diff_brute_force;
-    }
+    unsigned solution = brute_force(max_weight, items);
+    auto averageTime = benchmarkKnapsackAlgorithm(brute_force, items, max_weight, 20);
     // cout << "Time used by Brute Force " << chrono::duration <double, milli> (diff_brute_force).count() << " ms." << " Profit: " << test_brute_force << endl;
-    printResultsToFile("bruteforce", items.size(), max_weight, test_brute_force, 20, averageTime);
+    printResultsToFile("bruteforce", items.size(), max_weight, solution, 20, averageTime);
     return 0;
 }
