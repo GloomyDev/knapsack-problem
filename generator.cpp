@@ -15,8 +15,6 @@
 #define Item std::pair<int, int>
 #define Items std::vector<Item>
 
-Items items;
-
 Items generateItemsList(int num_items, int max_weight, int profit, int seed) {
     srand(seed);
     Items items;
