@@ -1,12 +1,4 @@
-#include <algorithm>
-#include <chrono>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <math.h>
-#include <vector>
-
+#include <string>
 #include "knapsack.h"
 
 void partialSums(const unsigned index, Item item, const Knapsack &items, Item &solution, const unsigned &max_weight)

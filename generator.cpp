@@ -1,16 +1,6 @@
-#include <algorithm>
-#include <chrono>
-#include <cstdio>
-#include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <iterator>
-#include <stdlib.h>
-#include <stdio.h>
 #include <string>
-#include <time.h>
-#include <tuple>
-#include <utility>
 #include <vector>
 
 #define Item std::pair<unsigned, unsigned>

@@ -3,7 +3,6 @@
 #include <chrono>
 #include <fstream>
 #include <string>
-#include <utility>
 #include <vector>
 
 #define Knapsack std::vector<Item>

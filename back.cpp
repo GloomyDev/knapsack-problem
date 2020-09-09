@@ -1,12 +1,4 @@
-#include <algorithm>
-#include <chrono>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <math.h>
-#include <vector>
-
+#include <string>
 #include "knapsack.h"
 
 unsigned solveBacktracking(const unsigned solution, const unsigned index, const int max_weight, const Knapsack &knapsack)

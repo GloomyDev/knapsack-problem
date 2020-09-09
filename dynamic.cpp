@@ -1,12 +1,4 @@
-#include <algorithm>
-#include <chrono>
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <math.h>
-#include <vector>
-
+#include <string>
 #include "knapsack.h"
 
 unsigned solveDynamic(const unsigned index, const int max_weight, Matrix &matrix, const Knapsack &knapsack)
