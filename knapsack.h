@@ -71,10 +71,10 @@ std::chrono::nanoseconds benchmarkKnapsackAlgorithm(
     std::chrono::nanoseconds averageTime {0};
     for (int i = 0; i < iterations; ++i)
     {
-        auto start_brute_force = std::chrono::steady_clock::now();
-        auto end_brute_force = std::chrono::steady_clock::now();
-        auto diff_brute_force = end_brute_force - start_brute_force;
-        averageTime += diff_brute_force;
+        auto start_time = std::chrono::steady_clock::now();
+        auto end_time = std::chrono::steady_clock::now();
+        auto diff_time = end_time - start_time;
+        averageTime += diff_time;
     }
     return averageTime;
 }
