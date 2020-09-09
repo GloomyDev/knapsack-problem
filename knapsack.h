@@ -15,9 +15,11 @@ bool myComparison(const Item &a, const Item &b)
     return a.second < b.second;
 }
 
-Knapsack knapsackGenerator(const unsigned &num_items, const unsigned &max_weight) {
+Knapsack knapsackGenerator(const unsigned &num_items, const unsigned &max_weight)
+{
     Knapsack knapsack(num_items);
-    for (int i = 0; i < num_items; i++) {
+    for (int i = 0; i < num_items; i++)
+    {
         knapsack[i].first = (rand() % max_weight + 1);
         knapsack[i].second = (rand() % max_weight + 1);
     }
@@ -27,14 +29,13 @@ Knapsack knapsackGenerator(const unsigned &num_items, const unsigned &max_weight
 Knapsack getKnapsackFromFile(const std::string &filename) {
     Knapsack pairs;
     std::ifstream ifs(filename);
-    while (!ifs.eof()) {
+    while (!ifs.eof())
+    {
         Item item;
         ifs >> item.first >> item.second;
         pairs.push_back(item);
     }
     ifs.close();
-    pairs.erase(pairs.begin());
-    pairs.erase(pairs.end() - 1);
     return pairs;
 }
 

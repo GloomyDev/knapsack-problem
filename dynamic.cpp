@@ -9,12 +9,14 @@
 
 #include "knapsack.h"
 
-int solveDynamic(int index, int max_weight, Matrix &matrix, const Knapsack &knapsack) {
+int solveDynamic(int index, int max_weight, Matrix &matrix, const Knapsack &knapsack)
+{
     if (matrix[index][max_weight] != -1) return matrix[index][max_weight];
 
     std::pair<int, int> item = knapsack[index];
 
-    if (index == 0) { // If last item
+    if (index == 0)
+    { // If last item
         if (item.first <= max_weight) return item.second;
         return 0;
     }
@@ -23,8 +25,10 @@ int solveDynamic(int index, int max_weight, Matrix &matrix, const Knapsack &knap
 
     if (item.first > max_weight) return solveDynamic(index-1, max_weight, matrix, knapsack);
 
-    matrix[index][max_weight] = std::max(solveDynamic(index-1, max_weight, matrix, knapsack),
-                                    solveDynamic(index-1, max_weight - item.first, matrix, knapsack) + item.second);  
+    matrix[index][max_weight] = std::max(
+        solveDynamic(index-1, max_weight, matrix, knapsack),
+        solveDynamic(index-1, max_weight - item.first, matrix, knapsack) + item.second
+    );
 
     return matrix[index][max_weight];
 }
