@@ -26,17 +26,6 @@ Item& operator+=(Item &lhs, const Item &rhs)
     return lhs;
 }
 
-Knapsack knapsackGenerator(const unsigned num_items, const unsigned max_weight)
-{
-    Knapsack knapsack(num_items);
-    for (int i = 0; i < num_items; i++)
-    {
-        knapsack[i].weight = (rand() % max_weight + 1);
-        knapsack[i].value = (rand() % max_weight + 1);
-    }
-    return knapsack;
-}
-
 Knapsack getKnapsackFromFile(const std::string &filename) {
     Knapsack pairs;
     std::ifstream ifs(filename);
