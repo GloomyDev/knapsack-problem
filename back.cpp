@@ -12,7 +12,7 @@ unsigned solveBacktracking(const unsigned solution, const unsigned index, const 
         return solveBacktracking(solution, index + 1, max_weight, knapsack);
     }
     else
-    { 
+    {
         return std::max(
             solveBacktracking(solution + knapsack[index + 1].value, index + 1, max_weight - knapsack[index + 1].weight, knapsack),
             solveBacktracking(solution, index + 1, max_weight, knapsack)
