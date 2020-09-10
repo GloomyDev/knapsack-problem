@@ -1,7 +1,7 @@
 #include <string>
 #include "knapsack.h"
 
-void partialSums(const unsigned index, Item item, const Knapsack &items, Item &solution, const unsigned &max_weight)
+void partialSums(const unsigned index, Item item, const Knapsack &items, Item &solution, const unsigned max_weight)
 {
     if (index == items.size())
     {
@@ -23,8 +23,7 @@ unsigned brute_force(const unsigned max_weight, const Knapsack &knapsack)
     Item item {0,0};
     Item solution {0,0};
     partialSums(0, item, knapsack, solution, max_weight);
-    const unsigned benefit = solution.value;
-    return benefit;
+    return solution.value;
 }
 
 int main(int argc, char *argv[])
