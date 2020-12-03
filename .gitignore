@@ -2,7 +2,9 @@
 *.o
 *.csv
 *.txt
+!CMakeLists.txt
 back
 brute
 dynamic
 generator
+build/
