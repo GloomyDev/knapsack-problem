@@ -5,14 +5,14 @@
 #include <string>
 #include <vector>
 
-#define Knapsack std::vector<Item>
-#define Matrix std::vector<std::vector<int>>
-
 struct Item
 {
     unsigned weight;
     unsigned value;
 };
+
+using Knapsack = std::vector<Item>;
+using Matrix = std::vector<std::vector<int>>;
 
 Item operator+(const Item &lhs, const Item &rhs)
 {

@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-#define Item std::pair<unsigned, unsigned>
-#define Items std::vector<Item>
+using Item = std::pair<unsigned, unsigned>;
+using Items = std::vector<Item>;
 
 static Items generateItemsList(const unsigned num_items, const unsigned max_weight, const unsigned max_value)
 {
