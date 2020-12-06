@@ -11,9 +11,6 @@ struct Item
     unsigned value;
 };
 
-using Knapsack = std::vector<Item>;
-using Matrix = std::vector<std::vector<int>>;
-
 Item operator+(const Item &lhs, const Item &rhs)
 {
     return { lhs.weight + rhs.weight, lhs.value + rhs.value };
@@ -25,6 +22,9 @@ Item& operator+=(Item &lhs, const Item &rhs)
     lhs.value += rhs.value;
     return lhs;
 }
+
+using Knapsack = std::vector<Item>;
+using Matrix = std::vector<std::vector<int>>;
 
 Knapsack getKnapsackFromFile(const std::string &filename) {
     Knapsack pairs;
